@@ -11,7 +11,7 @@ namespace DbdLoader
     public partial class MainForm : Form
     {
         private Panel pnlTitleBar = null!;
-        private Label lblLogoBW = null!;
+        private PictureBox picLogo = null!;
         private Label lblTitleText = null!;
         private Button btnMinimize = null!;
         private Button btnClose = null!;
@@ -33,8 +33,27 @@ namespace DbdLoader
         public MainForm()
         {
             InitializeComponent();
+            LoadCustomIcon();
             SetupCustomUI();
             UpdateMitmUI(false);
+        }
+
+        private void LoadCustomIcon()
+        {
+            try
+            {
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string iconPath = Path.Combine(baseDir, "app_icon.ico");
+                if (!File.Exists(iconPath))
+                {
+                    iconPath = Path.Combine(baseDir, "..", "..", "app_icon.ico");
+                }
+                if (File.Exists(iconPath))
+                {
+                    this.Icon = new Icon(iconPath);
+                }
+            }
+            catch { }
         }
 
         private Font GetModernFont(float size, FontStyle style = FontStyle.Regular)
@@ -51,7 +70,7 @@ namespace DbdLoader
 
         private void SetupCustomUI()
         {
-            this.Text = "BW UNLOCKER v1.0.0 - 100% Automático";
+            this.Text = "BW UNLOCKER v1.0.0";
             this.Size = new Size(640, 435);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
@@ -70,24 +89,39 @@ namespace DbdLoader
             };
             this.Controls.Add(pnlTitleBar);
 
-            // Badge / Logo "BW"
-            lblLogoBW = new Label
+            // Logo Retro Wave Image (PictureBox)
+            picLogo = new PictureBox
             {
-                Text = "BW",
-                Location = new Point(14, 10),
-                Size = new Size(36, 22),
-                Font = GetModernFont(11F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(255, 0, 127),
-                BackColor = Color.Transparent,
-                TextAlign = ContentAlignment.MiddleCenter
+                Location = new Point(14, 8),
+                Size = new Size(26, 26),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BackColor = Color.Transparent
             };
-            pnlTitleBar.Controls.Add(lblLogoBW);
+            try
+            {
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string logoPath = Path.Combine(baseDir, "src", "retro_logo.png");
+                if (!File.Exists(logoPath))
+                {
+                    logoPath = Path.Combine(baseDir, "..", "..", "src", "retro_logo.png");
+                }
+                if (File.Exists(logoPath))
+                {
+                    picLogo.Image = Image.FromFile(logoPath);
+                }
+                else if (this.Icon != null)
+                {
+                    picLogo.Image = this.Icon.ToBitmap();
+                }
+            }
+            catch { }
+            pnlTitleBar.Controls.Add(picLogo);
 
             // Texto do Título
             lblTitleText = new Label
             {
-                Text = "UNLOCKER   v1.0.0 - 100% Automático",
-                Location = new Point(56, 11),
+                Text = "UNLOCKER   v1.0.0",
+                Location = new Point(50, 11),
                 Size = new Size(460, 20),
                 Font = GetModernFont(9.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(200, 200, 220),
@@ -201,7 +235,7 @@ namespace DbdLoader
             btnStartMitm.Click += BtnStartMitm_Click;
             this.Controls.Add(btnStartMitm);
 
-            // Botão PARAR UNLOCKER (Com nitidez e visibilidade aprimorada!)
+            // Botão PARAR UNLOCKER
             btnStopMitm = new Button
             {
                 Text = "⏹   PARAR UNLOCKER",
