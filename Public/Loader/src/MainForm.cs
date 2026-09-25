@@ -11,16 +11,17 @@ namespace DbdLoader
     public partial class MainForm : Form
     {
         // ---------------------------------------------------------------------
-        // PALETA DE CORES EXATA SOLICITADA
+        // PALETA SUAVE & CONFORTÁVEL PARA OS OLHOS (EYE-FRIENDLY DARK SYNTH)
         // ---------------------------------------------------------------------
-        private static readonly Color BgMain = Color.FromArgb(5, 6, 13);           // #05060D - Preto azulado
-        private static readonly Color NeonPink = Color.FromArgb(255, 24, 200);     // #FF18C8 - Rosa principal
-        private static readonly Color HotPink = Color.FromArgb(255, 77, 219);      // #FF4DDB - Rosa claro
-        private static readonly Color NeonPurple = Color.FromArgb(155, 44, 255);   // #9B2CFF - Transição
-        private static readonly Color ElectricBlue = Color.FromArgb(35, 107, 255); // #236BFF - Azul
-        private static readonly Color NeonCyan = Color.FromArgb(0, 217, 255);     // #00D9FF - Ciano
-        private static readonly Color TextMain = Color.FromArgb(244, 243, 255);    // #F4F3FF - Texto principal
-        private static readonly Color TextMuted = Color.FromArgb(153, 149, 181);   // #9995B5 - Texto secundário
+        private static readonly Color BgMain = Color.FromArgb(12, 13, 22);           // #0C0D16 - Fundo escuro suave
+        private static readonly Color CardBg = Color.FromArgb(18, 19, 32);           // #121320 - Fundo dos cards
+        private static readonly Color AccentPurple = Color.FromArgb(168, 85, 247);   // #A855F7 - Roxo suave
+        private static readonly Color AccentPink = Color.FromArgb(244, 114, 182);    // #F472B6 - Rosa suave
+        private static readonly Color AccentCyan = Color.FromArgb(45, 212, 191);     // #2DD4BF - Ciano/Teal suave
+        private static readonly Color AccentRed = Color.FromArgb(244, 63, 94);       // #F43F5E - Vermelho suave
+        private static readonly Color BorderSubtle = Color.FromArgb(40, 42, 65);     // #282A41 - Borda discreta
+        private static readonly Color TextMain = Color.FromArgb(243, 244, 246);    // #F3F4F6 - Branco frio suave
+        private static readonly Color TextMuted = Color.FromArgb(156, 163, 175);   // #9CA3AF - Cinza leitura confortável
 
         private Panel pnlTitleBar = null!;
         private PictureBox picLogo = null!;
@@ -95,9 +96,9 @@ namespace DbdLoader
             // -----------------------------------------------------------------
             pnlTitleBar = new Panel
             {
-                Location = new Point(2, 2),
-                Size = new Size(636, 42),
-                BackColor = Color.FromArgb(9, 10, 20),
+                Location = new Point(1, 1),
+                Size = new Size(638, 42),
+                BackColor = Color.FromArgb(15, 16, 26),
             };
             this.Controls.Add(pnlTitleBar);
 
@@ -146,7 +147,7 @@ namespace DbdLoader
             btnClose = new Button
             {
                 Text = "✕",
-                Location = new Point(592, 6),
+                Location = new Point(594, 6),
                 Size = new Size(36, 30),
                 FlatStyle = FlatStyle.Flat,
                 ForeColor = TextMuted,
@@ -155,7 +156,7 @@ namespace DbdLoader
                 Cursor = Cursors.Hand
             };
             btnClose.FlatAppearance.BorderSize = 0;
-            btnClose.FlatAppearance.MouseOverBackColor = Color.FromArgb(232, 17, 35);
+            btnClose.FlatAppearance.MouseOverBackColor = Color.FromArgb(225, 29, 72);
             btnClose.Click += (s, e) => this.Close();
             pnlTitleBar.Controls.Add(btnClose);
 
@@ -163,7 +164,7 @@ namespace DbdLoader
             btnMinimize = new Button
             {
                 Text = "—",
-                Location = new Point(552, 6),
+                Location = new Point(554, 6),
                 Size = new Size(36, 30),
                 FlatStyle = FlatStyle.Flat,
                 ForeColor = TextMuted,
@@ -172,7 +173,7 @@ namespace DbdLoader
                 Cursor = Cursors.Hand
             };
             btnMinimize.FlatAppearance.BorderSize = 0;
-            btnMinimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 32, 50);
+            btnMinimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 32, 48);
             btnMinimize.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
             pnlTitleBar.Controls.Add(btnMinimize);
 
@@ -183,7 +184,7 @@ namespace DbdLoader
             {
                 Location = new Point(24, 56),
                 Size = new Size(592, 82),
-                BackColor = Color.FromArgb(12, 14, 28)
+                BackColor = CardBg
             };
             this.Controls.Add(pnlStatusCard);
 
@@ -192,7 +193,7 @@ namespace DbdLoader
             {
                 Location = new Point(22, 33),
                 Size = new Size(14, 14),
-                BackColor = NeonPink
+                BackColor = AccentRed
             };
             pnlStatusCard.Controls.Add(pnlStatusDot);
 
@@ -201,7 +202,7 @@ namespace DbdLoader
             {
                 Location = new Point(50, 18),
                 Size = new Size(1, 46),
-                BackColor = Color.FromArgb(35, 38, 60)
+                BackColor = BorderSubtle
             };
             pnlStatusCard.Controls.Add(pnlStatusDivider);
 
@@ -212,7 +213,7 @@ namespace DbdLoader
                 Location = new Point(66, 16),
                 Size = new Size(500, 24),
                 Font = GetModernFont(12F, FontStyle.Bold),
-                ForeColor = NeonPink
+                ForeColor = AccentRed
             };
             pnlStatusCard.Controls.Add(lblStatusHeader);
 
@@ -237,30 +238,30 @@ namespace DbdLoader
                 Location = new Point(24, 152),
                 Size = new Size(592, 54),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(28, 12, 45),
+                BackColor = Color.FromArgb(32, 20, 52),
                 ForeColor = TextMain,
                 Font = GetModernFont(12F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnStartMitm.FlatAppearance.BorderSize = 1;
-            btnStartMitm.FlatAppearance.BorderColor = NeonPink;
+            btnStartMitm.FlatAppearance.BorderColor = AccentPurple;
             btnStartMitm.Click += BtnStartMitm_Click;
             this.Controls.Add(btnStartMitm);
 
-            // Botão PARAR UNLOCKER
+            // Botão PARAR UNLOCKER (Legibilidade total com contraste limpo e sem cansar a visão)
             btnStopMitm = new Button
             {
                 Text = "⏹   PARAR UNLOCKER",
                 Location = new Point(24, 218),
                 Size = new Size(592, 44),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(16, 18, 32),
+                BackColor = CardBg,
                 ForeColor = TextMain,
                 Font = GetModernFont(10.5F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnStopMitm.FlatAppearance.BorderSize = 1;
-            btnStopMitm.FlatAppearance.BorderColor = ElectricBlue;
+            btnStopMitm.FlatAppearance.BorderColor = BorderSubtle;
             btnStopMitm.Click += BtnStopMitm_Click;
             this.Controls.Add(btnStopMitm);
 
@@ -271,7 +272,7 @@ namespace DbdLoader
             {
                 Location = new Point(24, 276),
                 Size = new Size(592, 1),
-                BackColor = Color.FromArgb(30, 32, 50)
+                BackColor = BorderSubtle
             };
             this.Controls.Add(pnlMainDivider);
 
@@ -284,13 +285,13 @@ namespace DbdLoader
                 Location = new Point(24, 290),
                 Size = new Size(186, 44),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(12, 14, 28),
+                BackColor = CardBg,
                 ForeColor = TextMain,
                 Font = GetModernFont(9F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnInstallCert.FlatAppearance.BorderSize = 1;
-            btnInstallCert.FlatAppearance.BorderColor = NeonPurple;
+            btnInstallCert.FlatAppearance.BorderColor = BorderSubtle;
             btnInstallCert.Click += BtnInstallCert_Click;
             this.Controls.Add(btnInstallCert);
 
@@ -300,13 +301,13 @@ namespace DbdLoader
                 Location = new Point(222, 290),
                 Size = new Size(186, 44),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(12, 14, 28),
+                BackColor = CardBg,
                 ForeColor = TextMain,
                 Font = GetModernFont(9F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnOpenLogs.FlatAppearance.BorderSize = 1;
-            btnOpenLogs.FlatAppearance.BorderColor = ElectricBlue;
+            btnOpenLogs.FlatAppearance.BorderColor = BorderSubtle;
             btnOpenLogs.Click += BtnOpenLogs_Click;
             this.Controls.Add(btnOpenLogs);
 
@@ -316,13 +317,13 @@ namespace DbdLoader
                 Location = new Point(420, 290),
                 Size = new Size(196, 44),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(24, 12, 40),
-                ForeColor = HotPink,
+                BackColor = Color.FromArgb(28, 20, 48),
+                ForeColor = AccentPink,
                 Font = GetModernFont(9F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnDiscord.FlatAppearance.BorderSize = 1;
-            btnDiscord.FlatAppearance.BorderColor = HotPink;
+            btnDiscord.FlatAppearance.BorderColor = AccentPink;
             btnDiscord.Click += (s, e) => OpenDiscordLink();
             this.Controls.Add(btnDiscord);
 
@@ -331,15 +332,15 @@ namespace DbdLoader
             // -----------------------------------------------------------------
             lblScamWarning = new LinkLabel
             {
-                Text = "⚠️ Se você pagou por este programa, você foi ENGANADO!\nClique para entrar no Discord: https://discord.gg/GvzPKRGxrs",
+                Text = "⚠️ Se você pagou por este programa, você foi ENGANADO!\nClique para entrar no Discord Oficial: https://discord.gg/GvzPKRGxrs",
                 Location = new Point(24, 348),
                 Size = new Size(592, 65),
                 Font = GetModernFont(9F, FontStyle.Bold),
-                LinkColor = HotPink,
-                ActiveLinkColor = NeonCyan,
-                VisitedLinkColor = HotPink,
+                LinkColor = AccentPink,
+                ActiveLinkColor = AccentCyan,
+                VisitedLinkColor = AccentPink,
                 TextAlign = ContentAlignment.MiddleCenter,
-                BackColor = Color.FromArgb(16, 12, 30),
+                BackColor = Color.FromArgb(20, 16, 32),
                 Padding = new Padding(6)
             };
             lblScamWarning.Click += (s, e) => OpenDiscordLink();
@@ -358,13 +359,13 @@ namespace DbdLoader
             }
         }
 
-        // Desenha a borda neon rosa/magenta (#FF18C8) em volta da janela inteira
+        // Desenha a borda sutil elegante em volta da janela inteira (Sem neon cegante)
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            using (Pen borderPen = new Pen(NeonPink, 2))
+            using (Pen borderPen = new Pen(BorderSubtle, 1.5f))
             {
-                e.Graphics.DrawRectangle(borderPen, 1, 1, this.Width - 2, this.Height - 2);
+                e.Graphics.DrawRectangle(borderPen, 0, 0, this.Width - 1, this.Height - 1);
             }
         }
 
@@ -390,37 +391,37 @@ namespace DbdLoader
             if (running)
             {
                 lblStatusHeader.Text = "STATUS:  ATIVO";
-                lblStatusHeader.ForeColor = NeonCyan;
-                pnlStatusDot.BackColor = NeonCyan;
+                lblStatusHeader.ForeColor = AccentCyan;
+                pnlStatusDot.BackColor = AccentCyan;
                 lblStatusDetail.Text = "Proxy ativo interceptando bhvrdbd.com. Pode abrir o DBD e jogar!";
                 lblStatusDetail.ForeColor = TextMain;
 
                 btnStartMitm.Enabled = false;
-                btnStartMitm.BackColor = Color.FromArgb(12, 14, 24);
-                btnStartMitm.FlatAppearance.BorderColor = TextMuted;
+                btnStartMitm.BackColor = CardBg;
+                btnStartMitm.FlatAppearance.BorderColor = BorderSubtle;
                 btnStartMitm.ForeColor = TextMuted;
 
                 btnStopMitm.Enabled = true;
-                btnStopMitm.BackColor = Color.FromArgb(45, 10, 35);
-                btnStopMitm.FlatAppearance.BorderColor = NeonPink;
+                btnStopMitm.BackColor = Color.FromArgb(48, 16, 30);
+                btnStopMitm.FlatAppearance.BorderColor = AccentRed;
                 btnStopMitm.ForeColor = TextMain;
             }
             else
             {
                 lblStatusHeader.Text = "STATUS:  PARADO";
-                lblStatusHeader.ForeColor = NeonPink;
-                pnlStatusDot.BackColor = NeonPink;
+                lblStatusHeader.ForeColor = AccentRed;
+                pnlStatusDot.BackColor = AccentRed;
                 lblStatusDetail.Text = "Clique em 'INICIAR UNLOCKER AUTOMÁTICO' para ativar o desbloqueio.";
                 lblStatusDetail.ForeColor = TextMuted;
 
                 btnStartMitm.Enabled = true;
-                btnStartMitm.BackColor = Color.FromArgb(28, 12, 45);
-                btnStartMitm.FlatAppearance.BorderColor = NeonPink;
+                btnStartMitm.BackColor = Color.FromArgb(32, 20, 52);
+                btnStartMitm.FlatAppearance.BorderColor = AccentPurple;
                 btnStartMitm.ForeColor = TextMain;
 
                 btnStopMitm.Enabled = false;
-                btnStopMitm.BackColor = Color.FromArgb(16, 18, 32);
-                btnStopMitm.FlatAppearance.BorderColor = ElectricBlue;
+                btnStopMitm.BackColor = CardBg;
+                btnStopMitm.FlatAppearance.BorderColor = BorderSubtle;
                 btnStopMitm.ForeColor = TextMuted;
             }
         }
