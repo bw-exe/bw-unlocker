@@ -24,7 +24,6 @@ namespace DbdLoader
         private static readonly Color TextMuted = Color.FromArgb(156, 163, 175);   // #9CA3AF - Cinza leitura confortável
 
         private Panel pnlTitleBar = null!;
-        private PictureBox picLogo = null!;
         private Label lblTitleText = null!;
         private Button btnMinimize = null!;
         private Button btnClose = null!;
@@ -41,7 +40,7 @@ namespace DbdLoader
         private Button btnInstallCert = null!;
         private Button btnOpenLogs = null!;
         private Button btnDiscord = null!;
-        private LinkLabel lblScamWarning = null!;
+        private Label lblScamWarning = null!;
 
         public MainForm()
         {
@@ -84,7 +83,7 @@ namespace DbdLoader
         private void SetupCustomUI()
         {
             this.Text = "BW UNLOCKER v1.0.0";
-            this.Size = new Size(640, 435);
+            this.Size = new Size(640, 412);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
             this.BackColor = BgMain;
@@ -102,41 +101,13 @@ namespace DbdLoader
             };
             this.Controls.Add(pnlTitleBar);
 
-            // Logo Retro Wave Image (PictureBox)
-            picLogo = new PictureBox
-            {
-                Location = new Point(14, 8),
-                Size = new Size(26, 26),
-                SizeMode = PictureBoxSizeMode.Zoom,
-                BackColor = Color.Transparent
-            };
-            try
-            {
-                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string logoPath = Path.Combine(baseDir, "src", "retro_logo.png");
-                if (!File.Exists(logoPath))
-                {
-                    logoPath = Path.Combine(baseDir, "..", "..", "src", "retro_logo.png");
-                }
-                if (File.Exists(logoPath))
-                {
-                    picLogo.Image = Image.FromFile(logoPath);
-                }
-                else if (this.Icon != null)
-                {
-                    picLogo.Image = this.Icon.ToBitmap();
-                }
-            }
-            catch { }
-            pnlTitleBar.Controls.Add(picLogo);
-
-            // Texto do Título
+            // Texto do Título (Texto "BW" escrito com a mesma fonte)
             lblTitleText = new Label
             {
-                Text = "UNLOCKER   v1.0.0",
-                Location = new Point(50, 11),
-                Size = new Size(460, 20),
-                Font = GetModernFont(10F, FontStyle.Bold),
+                Text = "BW UNLOCKER   v1.0.0",
+                Location = new Point(16, 11),
+                Size = new Size(500, 20),
+                Font = GetModernFont(10.5F, FontStyle.Bold),
                 ForeColor = TextMain,
                 BackColor = Color.Transparent,
                 TextAlign = ContentAlignment.MiddleLeft
@@ -295,6 +266,7 @@ namespace DbdLoader
             btnInstallCert.Click += BtnInstallCert_Click;
             this.Controls.Add(btnInstallCert);
 
+            // Botão Abrir Logs
             btnOpenLogs = new Button
             {
                 Text = "📄   Abrir Logs",
@@ -311,6 +283,7 @@ namespace DbdLoader
             btnOpenLogs.Click += BtnOpenLogs_Click;
             this.Controls.Add(btnOpenLogs);
 
+            // Botão Discord
             btnDiscord = new Button
             {
                 Text = "💬   Discord Oficial",
@@ -328,22 +301,19 @@ namespace DbdLoader
             this.Controls.Add(btnDiscord);
 
             // -----------------------------------------------------------------
-            // 6. AVISO DE GOLPE / SCAMMER (Rodapé)
+            // 6. AVISO DE GOLPE / SCAMMER (Rodapé sem duplicar link do discord)
             // -----------------------------------------------------------------
-            lblScamWarning = new LinkLabel
+            lblScamWarning = new Label
             {
-                Text = "⚠️ Se você pagou por este programa, você foi ENGANADO!\nClique para entrar no Discord Oficial: https://discord.gg/GvzPKRGxrs",
+                Text = "⚠️ Se você pagou por este programa, você foi ENGANADO!",
                 Location = new Point(24, 348),
-                Size = new Size(592, 65),
-                Font = GetModernFont(9F, FontStyle.Bold),
-                LinkColor = AccentPink,
-                ActiveLinkColor = AccentCyan,
-                VisitedLinkColor = AccentPink,
+                Size = new Size(592, 42),
+                Font = GetModernFont(9.5F, FontStyle.Bold),
+                ForeColor = AccentPink,
                 TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.FromArgb(20, 16, 32),
-                Padding = new Padding(6)
+                Padding = new Padding(4)
             };
-            lblScamWarning.Click += (s, e) => OpenDiscordLink();
             this.Controls.Add(lblScamWarning);
         }
 
