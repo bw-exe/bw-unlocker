@@ -1,7 +1,16 @@
-# bw-unlocker (Versão Pública - GitHub)
+# bw-unlocker (Versão Pública v1.0.0 - GitHub)
 
 > 🔔 **Apoie o projeto e novidades:**  
-> Inscreva-se no canal do YouTube: **[youtube.com/@bwzeraaa](http://www.youtube.com/@bwzeraaa)** para acompanhar atualizações, tutoriais e novidades em primeira mão!
+> Inscreva-se no canal do YouTube: **[youtube.com/@bwzeraaa](http://www.youtube.com/@bwzeraaa)**  
+> 💬 **Discord Oficial:** **[https://discord.gg/GvzPKRGxrs](https://discord.gg/GvzPKRGxrs)**
+
+---
+
+## ⚠️ AVISO ANTI-GOLPE (100% GRATUITO)
+
+> 🚨 **ESTE PROGRAMA É 100% GRATUITO!**  
+> Se você pagou por este unlocker em qualquer site, canal ou vendedor, **você foi enganado (scammado)!**  
+> Denuncie e tire dúvidas no nosso Discord Oficial: **[https://discord.gg/GvzPKRGxrs](https://discord.gg/GvzPKRGxrs)**
 
 ---
 
@@ -74,4 +83,5 @@ O executável gerado estará em `Loader/bin/Release/DBD-Loader.exe`.
 
 ## 📺 Comunidade & Créditos
 - Canal oficial: [bwzeraaa no YouTube](http://www.youtube.com/@bwzeraaa)
+- Discord Oficial: [https://discord.gg/GvzPKRGxrs](https://discord.gg/GvzPKRGxrs)
 - Contribuições e melhorias via Pull Requests são bem-vindas!

@@ -27,6 +27,8 @@ namespace DbdLoader
         private Panel pnlMainDivider = null!;
         private Button btnInstallCert = null!;
         private Button btnOpenLogs = null!;
+        private Button btnDiscord = null!;
+        private LinkLabel lblScamWarning = null!;
 
         public MainForm()
         {
@@ -35,10 +37,22 @@ namespace DbdLoader
             UpdateMitmUI(false);
         }
 
+        private Font GetModernFont(float size, FontStyle style = FontStyle.Regular)
+        {
+            try
+            {
+                return new Font("Bahnschrift", size, style);
+            }
+            catch
+            {
+                return new Font("Segoe UI", size, style);
+            }
+        }
+
         private void SetupCustomUI()
         {
-            this.Text = "BW UNLOCKER v11.0.0 - 100% Automático";
-            this.Size = new Size(620, 390);
+            this.Text = "BW UNLOCKER v1.0.0 - 100% Automático";
+            this.Size = new Size(640, 435);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
             this.BackColor = Color.FromArgb(10, 10, 16);
@@ -51,7 +65,7 @@ namespace DbdLoader
             pnlTitleBar = new Panel
             {
                 Location = new Point(2, 2),
-                Size = new Size(616, 42),
+                Size = new Size(636, 42),
                 BackColor = Color.FromArgb(12, 11, 19),
             };
             this.Controls.Add(pnlTitleBar);
@@ -60,10 +74,10 @@ namespace DbdLoader
             lblLogoBW = new Label
             {
                 Text = "BW",
-                Location = new Point(16, 10),
+                Location = new Point(14, 10),
                 Size = new Size(36, 22),
-                Font = new Font("Consolas", 11F, FontStyle.Bold),
-                ForeColor = Color.White,
+                Font = GetModernFont(11F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(255, 0, 127),
                 BackColor = Color.Transparent,
                 TextAlign = ContentAlignment.MiddleCenter
             };
@@ -72,11 +86,11 @@ namespace DbdLoader
             // Texto do Título
             lblTitleText = new Label
             {
-                Text = "UNLOCKER   v11.0.0 - 100% Automático",
-                Location = new Point(58, 11),
-                Size = new Size(440, 20),
-                Font = new Font("Consolas", 10F, FontStyle.Regular),
-                ForeColor = Color.FromArgb(180, 180, 200),
+                Text = "UNLOCKER   v1.0.0 - 100% Automático",
+                Location = new Point(56, 11),
+                Size = new Size(460, 20),
+                Font = GetModernFont(9.5F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(200, 200, 220),
                 BackColor = Color.Transparent,
                 TextAlign = ContentAlignment.MiddleLeft
             };
@@ -86,7 +100,7 @@ namespace DbdLoader
             btnClose = new Button
             {
                 Text = "✕",
-                Location = new Point(572, 6),
+                Location = new Point(592, 6),
                 Size = new Size(36, 30),
                 FlatStyle = FlatStyle.Flat,
                 ForeColor = Color.FromArgb(160, 160, 180),
@@ -103,7 +117,7 @@ namespace DbdLoader
             btnMinimize = new Button
             {
                 Text = "—",
-                Location = new Point(532, 6),
+                Location = new Point(552, 6),
                 Size = new Size(36, 30),
                 FlatStyle = FlatStyle.Flat,
                 ForeColor = Color.FromArgb(160, 160, 180),
@@ -121,16 +135,16 @@ namespace DbdLoader
             // -----------------------------------------------------------------
             pnlStatusCard = new Panel
             {
-                Location = new Point(24, 60),
-                Size = new Size(572, 85),
-                BackColor = Color.FromArgb(14, 13, 22)
+                Location = new Point(24, 56),
+                Size = new Size(592, 82),
+                BackColor = Color.FromArgb(14, 13, 24)
             };
             this.Controls.Add(pnlStatusCard);
 
-            // Ponto de Status com brilho (Dot)
+            // Ponto de Status (Dot)
             pnlStatusDot = new Panel
             {
-                Location = new Point(24, 34),
+                Location = new Point(22, 33),
                 Size = new Size(14, 14),
                 BackColor = Color.FromArgb(255, 46, 99)
             };
@@ -139,9 +153,9 @@ namespace DbdLoader
             // Divisor vertical no Status
             pnlStatusDivider = new Panel
             {
-                Location = new Point(52, 20),
-                Size = new Size(1, 45),
-                BackColor = Color.FromArgb(40, 38, 55)
+                Location = new Point(50, 18),
+                Size = new Size(1, 46),
+                BackColor = Color.FromArgb(40, 38, 58)
             };
             pnlStatusCard.Controls.Add(pnlStatusDivider);
 
@@ -149,9 +163,9 @@ namespace DbdLoader
             lblStatusHeader = new Label
             {
                 Text = "STATUS:  PARADO",
-                Location = new Point(68, 18),
-                Size = new Size(480, 24),
-                Font = new Font("Consolas", 12F, FontStyle.Bold),
+                Location = new Point(66, 16),
+                Size = new Size(500, 24),
+                Font = GetModernFont(12F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(255, 46, 99)
             };
             pnlStatusCard.Controls.Add(lblStatusHeader);
@@ -160,10 +174,10 @@ namespace DbdLoader
             lblStatusDetail = new Label
             {
                 Text = "Clique em 'INICIAR UNLOCKER AUTOMÁTICO' para ativar o desbloqueio.",
-                Location = new Point(69, 44),
-                Size = new Size(480, 22),
-                Font = new Font("Consolas", 9F, FontStyle.Regular),
-                ForeColor = Color.FromArgb(138, 138, 158)
+                Location = new Point(67, 43),
+                Size = new Size(500, 22),
+                Font = GetModernFont(9F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(150, 150, 175)
             };
             pnlStatusCard.Controls.Add(lblStatusDetail);
 
@@ -174,33 +188,33 @@ namespace DbdLoader
             btnStartMitm = new Button
             {
                 Text = "▶   INICIAR UNLOCKER AUTOMÁTICO",
-                Location = new Point(24, 162),
-                Size = new Size(572, 54),
+                Location = new Point(24, 152),
+                Size = new Size(592, 54),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(24, 14, 38),
+                BackColor = Color.FromArgb(28, 14, 42),
                 ForeColor = Color.White,
-                Font = new Font("Consolas", 11.5F, FontStyle.Bold),
+                Font = GetModernFont(12F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnStartMitm.FlatAppearance.BorderSize = 1;
-            btnStartMitm.FlatAppearance.BorderColor = Color.FromArgb(214, 52, 132);
+            btnStartMitm.FlatAppearance.BorderColor = Color.FromArgb(255, 0, 127);
             btnStartMitm.Click += BtnStartMitm_Click;
             this.Controls.Add(btnStartMitm);
 
-            // Botão PARAR UNLOCKER
+            // Botão PARAR UNLOCKER (Com nitidez e visibilidade aprimorada!)
             btnStopMitm = new Button
             {
                 Text = "⏹   PARAR UNLOCKER",
-                Location = new Point(24, 228),
-                Size = new Size(572, 44),
+                Location = new Point(24, 218),
+                Size = new Size(592, 44),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(15, 15, 23),
-                ForeColor = Color.FromArgb(120, 120, 140),
-                Font = new Font("Consolas", 10F, FontStyle.Bold),
+                BackColor = Color.FromArgb(18, 18, 28),
+                ForeColor = Color.FromArgb(180, 180, 205),
+                Font = GetModernFont(10.5F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnStopMitm.FlatAppearance.BorderSize = 1;
-            btnStopMitm.FlatAppearance.BorderColor = Color.FromArgb(40, 40, 58);
+            btnStopMitm.FlatAppearance.BorderColor = Color.FromArgb(60, 60, 85);
             btnStopMitm.Click += BtnStopMitm_Click;
             this.Controls.Add(btnStopMitm);
 
@@ -209,53 +223,100 @@ namespace DbdLoader
             // -----------------------------------------------------------------
             pnlMainDivider = new Panel
             {
-                Location = new Point(24, 290),
-                Size = new Size(572, 1),
-                BackColor = Color.FromArgb(28, 28, 40)
+                Location = new Point(24, 276),
+                Size = new Size(592, 1),
+                BackColor = Color.FromArgb(28, 28, 42)
             };
             this.Controls.Add(pnlMainDivider);
 
             // -----------------------------------------------------------------
-            // 5. BOTÕES SECUNDÁRIOS (Instalar Certificado / Abrir Logs)
+            // 5. BOTÕES SECUNDÁRIOS (SSL / Logs / Discord)
             // -----------------------------------------------------------------
             btnInstallCert = new Button
             {
-                Text = "🔗   Instalar Certificado SSL",
-                Location = new Point(24, 308),
-                Size = new Size(276, 44),
+                Text = "🔗   Instalar SSL",
+                Location = new Point(24, 290),
+                Size = new Size(186, 44),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(16, 16, 26),
-                ForeColor = Color.FromArgb(200, 200, 220),
-                Font = new Font("Consolas", 9.5F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(210, 210, 230),
+                Font = GetModernFont(9F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnInstallCert.FlatAppearance.BorderSize = 1;
-            btnInstallCert.FlatAppearance.BorderColor = Color.FromArgb(50, 50, 70);
+            btnInstallCert.FlatAppearance.BorderColor = Color.FromArgb(50, 50, 75);
             btnInstallCert.Click += BtnInstallCert_Click;
             this.Controls.Add(btnInstallCert);
 
             btnOpenLogs = new Button
             {
                 Text = "📄   Abrir Logs",
-                Location = new Point(320, 308),
-                Size = new Size(276, 44),
+                Location = new Point(222, 290),
+                Size = new Size(186, 44),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(16, 16, 26),
-                ForeColor = Color.FromArgb(200, 200, 220),
-                Font = new Font("Consolas", 9.5F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(210, 210, 230),
+                Font = GetModernFont(9F, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnOpenLogs.FlatAppearance.BorderSize = 1;
-            btnOpenLogs.FlatAppearance.BorderColor = Color.FromArgb(50, 50, 70);
+            btnOpenLogs.FlatAppearance.BorderColor = Color.FromArgb(50, 50, 75);
             btnOpenLogs.Click += BtnOpenLogs_Click;
             this.Controls.Add(btnOpenLogs);
+
+            btnDiscord = new Button
+            {
+                Text = "💬   Discord Oficial",
+                Location = new Point(420, 290),
+                Size = new Size(196, 44),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(24, 18, 38),
+                ForeColor = Color.FromArgb(180, 140, 255),
+                Font = GetModernFont(9F, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
+            btnDiscord.FlatAppearance.BorderSize = 1;
+            btnDiscord.FlatAppearance.BorderColor = Color.FromArgb(140, 80, 255);
+            btnDiscord.Click += (s, e) => OpenDiscordLink();
+            this.Controls.Add(btnDiscord);
+
+            // -----------------------------------------------------------------
+            // 6. AVISO DE GOLPE / SCAMMER (Rodapé)
+            // -----------------------------------------------------------------
+            lblScamWarning = new LinkLabel
+            {
+                Text = "⚠️ Se você pagou por este programa, você foi ENGANADO!\nClique para entrar no Discord: https://discord.gg/GvzPKRGxrs",
+                Location = new Point(24, 348),
+                Size = new Size(592, 65),
+                Font = GetModernFont(9F, FontStyle.Bold),
+                LinkColor = Color.FromArgb(255, 90, 130),
+                ActiveLinkColor = Color.FromArgb(255, 0, 127),
+                VisitedLinkColor = Color.FromArgb(255, 90, 130),
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.FromArgb(20, 12, 24),
+                Padding = new Padding(6)
+            };
+            lblScamWarning.Click += (s, e) => OpenDiscordLink();
+            this.Controls.Add(lblScamWarning);
         }
 
-        // Desenha a borda neon rosa/magenta em volta da janela inteira
+        private void OpenDiscordLink()
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo("https://discord.gg/GvzPKRGxrs") { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível abrir o link: {ex.Message}", "Discord", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // Desenha a borda neon magenta em volta da janela inteira
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            using (Pen borderPen = new Pen(Color.FromArgb(214, 52, 132), 2))
+            using (Pen borderPen = new Pen(Color.FromArgb(255, 0, 127), 2))
             {
                 e.Graphics.DrawRectangle(borderPen, 1, 1, this.Width - 2, this.Height - 2);
             }
@@ -291,10 +352,10 @@ namespace DbdLoader
                 btnStartMitm.Enabled = false;
                 btnStartMitm.BackColor = Color.FromArgb(15, 15, 24);
                 btnStartMitm.FlatAppearance.BorderColor = Color.FromArgb(50, 50, 70);
-                btnStartMitm.ForeColor = Color.FromArgb(80, 80, 100);
+                btnStartMitm.ForeColor = Color.FromArgb(90, 90, 110);
 
                 btnStopMitm.Enabled = true;
-                btnStopMitm.BackColor = Color.FromArgb(40, 14, 25);
+                btnStopMitm.BackColor = Color.FromArgb(50, 14, 30);
                 btnStopMitm.FlatAppearance.BorderColor = Color.FromArgb(255, 46, 99);
                 btnStopMitm.ForeColor = Color.White;
             }
@@ -304,17 +365,17 @@ namespace DbdLoader
                 lblStatusHeader.ForeColor = Color.FromArgb(255, 46, 99); // Pink/Red
                 pnlStatusDot.BackColor = Color.FromArgb(255, 46, 99);
                 lblStatusDetail.Text = "Clique em 'INICIAR UNLOCKER AUTOMÁTICO' para ativar o desbloqueio.";
-                lblStatusDetail.ForeColor = Color.FromArgb(138, 138, 158);
+                lblStatusDetail.ForeColor = Color.FromArgb(150, 150, 175);
 
                 btnStartMitm.Enabled = true;
-                btnStartMitm.BackColor = Color.FromArgb(24, 14, 38);
-                btnStartMitm.FlatAppearance.BorderColor = Color.FromArgb(214, 52, 132);
+                btnStartMitm.BackColor = Color.FromArgb(28, 14, 42);
+                btnStartMitm.FlatAppearance.BorderColor = Color.FromArgb(255, 0, 127);
                 btnStartMitm.ForeColor = Color.White;
 
                 btnStopMitm.Enabled = false;
-                btnStopMitm.BackColor = Color.FromArgb(15, 15, 23);
-                btnStopMitm.FlatAppearance.BorderColor = Color.FromArgb(40, 40, 58);
-                btnStopMitm.ForeColor = Color.FromArgb(70, 70, 90);
+                btnStopMitm.BackColor = Color.FromArgb(18, 18, 28);
+                btnStopMitm.FlatAppearance.BorderColor = Color.FromArgb(60, 60, 85);
+                btnStopMitm.ForeColor = Color.FromArgb(140, 140, 160);
             }
         }
 
