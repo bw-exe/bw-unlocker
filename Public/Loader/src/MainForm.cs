@@ -54,6 +54,21 @@ namespace DbdLoader
         {
             try
             {
+                string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                if (File.Exists(exePath))
+                {
+                    Icon? extracted = Icon.ExtractAssociatedIcon(exePath);
+                    if (extracted != null)
+                    {
+                        this.Icon = extracted;
+                        return;
+                    }
+                }
+            }
+            catch { }
+
+            try
+            {
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 string iconPath = Path.Combine(baseDir, "app_icon.ico");
                 if (!File.Exists(iconPath))
