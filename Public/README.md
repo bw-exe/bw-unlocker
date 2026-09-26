@@ -6,6 +6,13 @@
 
 ---
 
+## 🎮 Plataforma Suportada
+
+> ⚠️ **ATENÇÃO:** Atualmente, este projeto está disponível **EXCLUSIVAMENTE para a versão da EPIC GAMES STORE**.  
+> Outras plataformas (Steam, MS Store) ainda não possuem suporte ativo nesta versão.
+
+---
+
 ## ⚠️ AVISO ANTI-GOLPE (100% GRATUITO)
 
 > 🚨 **ESTE PROGRAMA É 100% GRATUITO!**  
@@ -37,38 +44,33 @@
 
 ---
 
-## 🛠️ Pré-requisitos
+## 🚀 Passo a Passo de Como Usar
 
-- **Windows 10 ou 11 (64-bit)**
-- **Python 3.10+** (com `pip` adicionado ao PATH do sistema)
-- **.NET Framework 4.8** (para executar o Loader)
+1. **Pré-requisitos**:
+   - Windows 10 ou 11 (64-bit).
+   - Jogo instalado pela **Epic Games Store**.
+   - **Python 3.10+** (com `pip` adicionado ao PATH do sistema).
+   - **.NET Framework 4.8** (para executar o Loader).
 
----
-
-## 🔨 Como Compilar o Loader (C# / WinForms)
-
-**Via Terminal (MSBuild / Developer Command Prompt):**
-```cmd
-cd Loader
-msbuild DBD-Loader.csproj /p:Configuration=Release /p:Platform=AnyCPU
-```
-O executável gerado estará em `Loader/bin/Release/DBD-Loader.exe`.
-
----
-
-## 🚀 Como Executar
-
-1. **Instalar as dependências Python:**
+2. **Passo 1 — Instalar dependências (Apenas na 1ª vez)**:
    ```bash
    pip install mitmproxy
    ```
-2. **Executar o Loader:**
-   - Abra `DBD-Loader.exe` e clique em **INICIAR UNLOCKER AUTOMÁTICO**.
-   - O certificado SSL será verificado/instalado e o proxy ativado automaticamente.
-3. **Abrir o jogo:**
-   - Inicie o jogo normalmente e divirta-se!
 
----
+3. **Passo 2 — Instalar o Certificado SSL (Apenas na 1ª vez)**:
+   - Abra o `DBD-Loader.exe` na pasta `Public/Loader/bin/Release/`.
+   - Clique em **`🔗 Instalar SSL`**.
+   - O certificado Root CA local será instalado silenciosamente no Windows.
+
+4. **Passo 3 — Iniciar o Unlocker**:
+   - Clique em **`▶ INICIAR UNLOCKER AUTOMÁTICO`**.
+   - O status no painel ficará **STATUS: ATIVO** e o proxy iniciará em segundo plano sem abrir janelas extras.
+
+5. **Passo 4 — Jogar**:
+   - Abra o Dead by Daylight no **Epic Games Launcher** e aproveite.
+
+6. **Passo 5 — Encerrar**:
+   - Clique em **`⏹ PARAR UNLOCKER`** ao finalizar.
 
 ## 📁 Estrutura do Projeto Público
 
