@@ -13,6 +13,38 @@ namespace DbdLoader
 
         public static bool IsProxyRunning => _proxyProcess != null && !_proxyProcess.HasExited;
 
+        private static ProcessStartInfo CreateSilentPythonStartInfo(string scriptPath, string arguments = "")
+        {
+            string fullArgs = string.IsNullOrEmpty(arguments) ? $"\"{scriptPath}\"" : $"\"{scriptPath}\" {arguments}";
+            string pythonExe = "pythonw";
+
+            try
+            {
+                using var p = Process.Start(new ProcessStartInfo
+                {
+                    FileName = "pythonw",
+                    Arguments = "-V",
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                });
+            }
+            catch
+            {
+                pythonExe = "python";
+            }
+
+            return new ProcessStartInfo
+            {
+                FileName = pythonExe,
+                Arguments = fullArgs,
+                WorkingDirectory = Path.GetDirectoryName(scriptPath),
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+        }
+
         public static bool StartMitmServer(out string error)
         {
             error = string.Empty;
@@ -38,14 +70,7 @@ namespace DbdLoader
                     return false;
                 }
 
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "python",
-                    Arguments = $"\"{serverScript}\"",
-                    WorkingDirectory = Path.GetDirectoryName(serverScript),
-                    UseShellExecute = true,
-                    CreateNoWindow = false
-                };
+                ProcessStartInfo psi = CreateSilentPythonStartInfo(serverScript);
 
                 _proxyProcess = Process.Start(psi);
                 SetSystemProxy(true, ProxyAddress);
@@ -86,20 +111,13 @@ namespace DbdLoader
             {
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 string certScript = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "Tools", "Cert-Manager", "manage_cert.py"));
-                
+
                 if (!File.Exists(certScript))
                 {
                     certScript = Path.GetFullPath(Path.Combine(baseDir, "Tools", "Cert-Manager", "manage_cert.py"));
                 }
 
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "python",
-                    Arguments = $"\"{certScript}\"",
-                    WorkingDirectory = Path.GetDirectoryName(certScript),
-                    UseShellExecute = true,
-                    CreateNoWindow = false
-                };
+                ProcessStartInfo psi = CreateSilentPythonStartInfo(certScript);
 
                 Process.Start(psi);
                 return true;

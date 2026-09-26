@@ -68,12 +68,12 @@ def main():
     ]
 
     try:
-        subprocess.run(cmd)
+        creation_flags = 0x08000000 if sys.platform == "win32" else 0  # CREATE_NO_WINDOW
+        subprocess.run(cmd, creationflags=creation_flags)
     except KeyboardInterrupt:
-        print("\n[*] Servidor MITM encerrado pelo usuário.")
+        pass
     except Exception as e:
-        print(f"\n[-] Erro ao executar mitmdump: {e}")
-        input("Pressione ENTER para fechar esta janela...")
+        pass
 
 if __name__ == "__main__":
     main()
