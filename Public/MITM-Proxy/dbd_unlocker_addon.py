@@ -91,7 +91,7 @@ class DBDUnlockerAddon:
         entry["characterItems"] = self.merge_character_items(existing_items, default_qty=3)
 
     def make_level50_bloodweb(self, orig_json: dict, req_char_name: str = "") -> dict:
-        """ Converte a teia do personagem em Nível 50 concluída para personagens possuídos """
+        """ Converte a teia do personagem em Nível 50 concluída para personagens possuídos sem corromper a estrutura do jogo """
         if not isinstance(orig_json, dict):
             return orig_json
 
@@ -110,19 +110,12 @@ class DBDUnlockerAddon:
         bwd = orig_json.get("bloodWebData")
         if isinstance(bwd, dict):
             ring_data = bwd.get("ringData", [])
-            if isinstance(ring_data, list) and ring_data:
+            if isinstance(ring_data, list):
                 for ring in ring_data:
                     if isinstance(ring, dict) and "nodeData" in ring and isinstance(ring["nodeData"], list):
                         for node in ring["nodeData"]:
                             if isinstance(node, dict):
                                 node["state"] = "Collected"
-                
-                # Garante 5 anéis completos para o Nível 50
-                while len(ring_data) < 5:
-                    last_ring = json.loads(json.dumps(ring_data[-1]))
-                    ring_data.append(last_ring)
-                
-                bwd["ringData"] = ring_data
 
         return orig_json
 
