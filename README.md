@@ -55,27 +55,11 @@
 
 ---
 
-## 📁 Estrutura de Pastas do Repositório
+## 📁 Estrutura de Pastas do Projeto
 
 ```text
-├── Public/             # PROJETO COMPLETO PÚBLICO (Para publicar no GitHub)
-│   ├── Loader/         # Interface gráfica em C# (.NET WinForms)
-│   ├── MITM-Proxy/     # Servidor e Addon Python (Personagens possuídos)
-│   ├── Tools/          # Gerenciador de Certificados SSL
-│   └── helps/          # Arquivos de regras JSON
-│
-└── Private/            # PROJETO COMPLETO PESSOAL (Full Unlock - No .gitignore, NUNCA vai ao GitHub)
-    ├── Loader/         # Interface gráfica em C# (.NET WinForms)
-    ├── MITM-Proxy/     # Servidor e Addon Python (Full Unlock)
-    ├── Tools/          # Gerenciador de Certificados SSL
-    └── helps/          # Arquivos de regras JSON
+├── Loader/             # Interface gráfica em C# (.NET WinForms)
+├── MITM-Proxy/         # Servidor e Addon Python
+├── Tools/              # Gerenciador de Certificados SSL
+└── helps/              # Arquivos de regras JSON
 ```
-
----
-
-## 🚀 Como Usar Cada Versão
-
-- **Para Usar a Versão Pessoal (Full Unlock)**:
-  - Acesse a pasta `Private/Loader/bin/Release/DBD-Loader.exe` e execute.
-- **Para Publicar no GitHub**:
-  - A pasta `Private/` está listada no `.gitignore`, então o Git ignorará ela automaticamente. Você pode commit do conteúdo da pasta `Public/` para o seu repositório.
