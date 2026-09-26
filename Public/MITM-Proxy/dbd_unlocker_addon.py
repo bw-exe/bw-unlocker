@@ -168,10 +168,15 @@ class DBDUnlockerAddon:
                     flow.response.status_code = 200
 
                 orig_body = flow.response.get_text()
-                orig_json = json.loads(orig_body) if orig_body else {}
+                if not orig_body:
+                    return
+
+                orig_json = json.loads(orig_body)
+                if not isinstance(orig_json, dict):
+                    return
 
                 # Caso A: Lista completa de personagens (/get-all)
-                if isinstance(orig_json, dict) and "list" in orig_json and isinstance(orig_json["list"], list):
+                if "list" in orig_json and isinstance(orig_json["list"], list):
                     orig_list = orig_json["list"]
                     spoof_list = self.get_all_data.get("list", []) if self.get_all_data else []
                     spoof_map = {entry.get("characterName"): entry for entry in spoof_list if isinstance(entry, dict) and "characterName" in entry}
@@ -186,8 +191,8 @@ class DBDUnlockerAddon:
                     flow.response.set_text(json.dumps(orig_json))
                     logging.info("[+] Sucesso! Personagens possuídos atualizados com Prestígio 50+ e Nível 50.")
 
-                # Caso B: Requisição da Teia de Sangue (/bloodweb)
-                elif "/bloodweb" in url and isinstance(orig_json, dict):
+                # Caso B: Requisição da Teia de Sangue (/bloodweb) - Apenas se contiver bloodWebData válido
+                elif "/bloodweb" in url and "bloodWebData" in orig_json:
                     req_text = flow.request.get_text()
                     req_char_name = None
                     if req_text:
@@ -203,21 +208,6 @@ class DBDUnlockerAddon:
                     orig_json = self.make_level50_bloodweb(orig_json, req_char_name)
                     flow.response.set_text(json.dumps(orig_json))
                     logging.info(f"[+] Teia de Sangue de {req_char_name} convertida para Nível 50 concluída!")
-
-                # Caso C: Retorno direto de objeto com characterItems ou loadout
-                elif isinstance(orig_json, dict):
-                    if orig_json.get("isEntitled", False):
-                        modified = False
-                        if "characterItems" in orig_json:
-                            orig_json["characterItems"] = self.merge_character_items(orig_json.get("characterItems", []), default_qty=3)
-                            modified = True
-                        if "bloodWebLevel" in orig_json:
-                            orig_json["bloodWebLevel"] = 50
-                            modified = True
-
-                        if modified:
-                            flow.response.set_text(json.dumps(orig_json))
-                            logging.info(f"[+] Sucesso! Dados de personagem possuído forçados para: {url}")
 
             except Exception as e:
                 logging.error(f"[-] Erro ao processar endpoint de personagem ({url}): {e}")
