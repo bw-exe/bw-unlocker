@@ -50,16 +50,36 @@ class DBDUnlockerAddon:
         levels = [50, 53, 56, 60, 65, 70, 74, 78, 82, 85, 90, 93, 97, 100]
         return levels[num % len(levels)]
 
-    def merge_character_items(self, target_list: list, default_qty: int = 3) -> list:
-        """ Garante que todos os itens do spoof existam no target_list com quantidade 3 """
+    def is_killer(self, char_name: str) -> bool:
+        if not char_name:
+            return False
+        known_killers = {
+            'Spirit', 'Nurse', 'Shape', 'Oni', 'Pig', 'Hag', 'Clown', 'Plague', 
+            'Legion', 'Ghostface', 'Demogorgon', 'Gunslinger', 'Cannibal', 'HillBilly', 
+            'Chuckles', 'Bear', 'Witch', 'Nightmare', 'Bob', 'Killer07'
+        }
+        return char_name in known_killers or char_name.startswith('K')
+
+    def merge_character_items(self, target_list: list, char_name: str = "", default_qty: int = 3) -> list:
+        """ Garante que apenas os itens apropriados do spoof existam no target_list com quantidade 3 """
         if not isinstance(target_list, list):
             target_list = []
         
+        char_is_killer = self.is_killer(char_name)
+
         item_map = {item.get("itemId"): item for item in target_list if isinstance(item, dict) and "itemId" in item}
         for spoof_item in self.default_character_items:
             item_id = spoof_item.get("itemId")
             if not item_id:
                 continue
+
+            # Evita injetar itens de Sobrevivente (Item_Camper_*) em Assassinos (Killers)
+            if char_is_killer and ("Camper" in item_id or "Item_Camper" in item_id):
+                continue
+            # Evita injetar itens de Assassino em Sobreviventes
+            if not char_is_killer and ("Slasher" in item_id or "Killer" in item_id):
+                continue
+
             if item_id in item_map:
                 item_map[item_id]["quantity"] = max(item_map[item_id].get("quantity", 0), default_qty)
             else:
@@ -88,7 +108,7 @@ class DBDUnlockerAddon:
             entry["customizations"] = spoof_entry["customizations"]
 
         existing_items = entry.get("characterItems", [])
-        entry["characterItems"] = self.merge_character_items(existing_items, default_qty=3)
+        entry["characterItems"] = self.merge_character_items(existing_items, char_name=char_name, default_qty=3)
 
     def make_level50_bloodweb(self, orig_json: dict, req_char_name: str = "") -> dict:
         """ Converte a teia do personagem em Nível 50 concluída para personagens possuídos sem corromper a estrutura do jogo """
@@ -105,7 +125,7 @@ class DBDUnlockerAddon:
         orig_json["prestigeLevel"] = self.get_random_prestige(char_name)
         orig_json["legacyPrestigeLevel"] = 3
         orig_json["updatedWallets"] = [{"currencyType": "Bloodpoints", "balance": 2000000}]
-        orig_json["characterItems"] = self.merge_character_items(orig_json.get("characterItems", []), default_qty=3)
+        orig_json["characterItems"] = self.merge_character_items(orig_json.get("characterItems", []), char_name=char_name, default_qty=3)
 
         bwd = orig_json.get("bloodWebData")
         if isinstance(bwd, dict):
