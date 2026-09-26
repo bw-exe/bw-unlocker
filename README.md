@@ -6,10 +6,12 @@
 
 ---
 
-## 🎮 Plataforma Suportada
+## 🎮 Plataforma Suportada & Aviso de Versão
 
 > ⚠️ **ATENÇÃO:** Atualmente, este projeto está disponível **EXCLUSIVAMENTE para a versão da EPIC GAMES STORE**.  
 > Outras plataformas (Steam, MS Store) ainda não possuem suporte ativo nesta versão.
+
+> 🛠️ **AVISO DE VERSÃO:** Esta versão **NÃO é a versão definitiva** e pode apresentar instabilidades ou fechamentos inesperados (*crashes*). Caso encontre algum bug, informe em nosso Discord Oficial.
 
 ---
 
