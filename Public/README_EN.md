@@ -1,5 +1,7 @@
 # bw-unlocker (Public Version v1.0.0 - GitHub)
 
+🌐 **Language / Idioma:** [Versão em Português](README.md) | **English Version**
+
 > 🔔 **Support the project & updates:**  
 > Subscribe to YouTube channel: **[youtube.com/@bwzeraaa](http://www.youtube.com/@bwzeraaa)**  
 > 💬 **Official Discord:** **[https://discord.gg/GvzPKRGxrs](https://discord.gg/GvzPKRGxrs)**
