@@ -95,6 +95,27 @@ namespace DbdLoader
             }
         }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCAPTION = 0x2;
+
+        private void EnableDragOnControl(Control control)
+        {
+            control.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    ReleaseCapture();
+                    SendMessage(this.Handle, WM_NCLBUTTONDOWN, (IntPtr)HTCAPTION, IntPtr.Zero);
+                }
+            };
+        }
+
         private void SetupCustomUI()
         {
             this.Text = "BW UNLOCKER v1.0.0";
@@ -105,6 +126,9 @@ namespace DbdLoader
             this.ForeColor = TextMain;
             this.DoubleBuffered = true;
 
+            // Habilita arrastar a janela clicando no próprio Form
+            EnableDragOnControl(this);
+
             // -----------------------------------------------------------------
             // 1. BARRA DE TÍTULO CUSTOMIZADA (TitleBar)
             // -----------------------------------------------------------------
@@ -114,6 +138,7 @@ namespace DbdLoader
                 Size = new Size(638, 42),
                 BackColor = Color.FromArgb(15, 16, 26),
             };
+            EnableDragOnControl(pnlTitleBar);
             this.Controls.Add(pnlTitleBar);
 
             // Texto do Título (Texto "BW" escrito com a mesma fonte)
@@ -127,6 +152,7 @@ namespace DbdLoader
                 BackColor = Color.Transparent,
                 TextAlign = ContentAlignment.MiddleLeft
             };
+            EnableDragOnControl(lblTitleText);
             pnlTitleBar.Controls.Add(lblTitleText);
 
             // Botão Fechar (✕)
@@ -357,9 +383,9 @@ namespace DbdLoader
         // Arrastar janela sem borda nativa
         protected override void WndProc(ref Message m)
         {
-            base.WndProc(ref m);
             if (m.Msg == 0x84 /* WM_NCHITTEST */)
             {
+                base.WndProc(ref m);
                 if (m.Result == (IntPtr)1 /* HTCLIENT */)
                 {
                     Point p = PointToClient(new Point(m.LParam.ToInt32()));
@@ -368,7 +394,9 @@ namespace DbdLoader
                         m.Result = (IntPtr)2; // HTCAPTION
                     }
                 }
+                return;
             }
+            base.WndProc(ref m);
         }
 
         private void UpdateMitmUI(bool running)
